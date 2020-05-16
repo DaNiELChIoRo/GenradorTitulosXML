@@ -44,8 +44,8 @@ import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
 public class JFT_Generador_Titulos extends javax.swing.JFrame {
 
     public static final String URL = "jdbc:mysql://localhost:3306/UNIVERSITY_TITLES?useTimezone=true&serverTimezone=GMT%2B8&relaxAutoCommit=false";
-    public static final String USERNAME = "titles_user";
-    public static final String PASSWORD = "P@33w0rd1";
+    public static final String USERNAME = "root";
+    public static final String PASSWORD = "mysql";
     PreparedStatement ps;
     ResultSet res;
     Connection conn = null;
