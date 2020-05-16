@@ -43,9 +43,9 @@ import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
  */
 public class JFT_Generador_Titulos extends javax.swing.JFrame {
 
-    public static final String URL = "jdbc:mysql://localhost:3306/university_titles?useTimezone=true&serverTimezone=GMT%2B8&relaxAutoCommit=false";
-    public static final String USERNAME = "root";
-    public static final String PASSWORD = "mysql";
+    public static final String URL = "jdbc:mysql://localhost:3306/UNIVERSITY_TITLES?useTimezone=true&serverTimezone=GMT%2B8&relaxAutoCommit=false";
+    public static final String USERNAME = "titles_user";
+    public static final String PASSWORD = "P@33w0rd1";
     PreparedStatement ps;
     ResultSet res;
     Connection conn = null;
@@ -57,6 +57,19 @@ public class JFT_Generador_Titulos extends javax.swing.JFrame {
 
     String cadenaOriginal = "";
     String noCertificadoResponsable = "";
+    
+    String nombre;
+    String a_paterno;
+    String a_materno;
+    String correo;
+    
+    String curp;
+    
+    String nombreCarrera;
+    
+    String F_INICIO;
+    String F_FIN;
+    String F_EXAMEN; 
     
     // *** DATOS RESPONSABLE ***
     String RFC_FIRMANTE = "";
@@ -85,9 +98,9 @@ public class JFT_Generador_Titulos extends javax.swing.JFrame {
     public static Connection getConnection() {
         Connection conn = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            JOptionPane.showMessageDialog(null, "Conexión exitosa");
+            // JOptionPane.showMessageDialog(null, "Conexión exitosa");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Error al intentar crear la conexión con la DB, Error: " + e);
@@ -201,18 +214,18 @@ public class JFT_Generador_Titulos extends javax.swing.JFrame {
             + "\" nombreInstitucion=\"" + "\" />",
         
         "\n\t <Carrera cveCarrera=\""
-            + "\" nombreCarrera=\""
-            + "\" fechaInicio=\""
-            + "\" fechaTerminacion=\""
+            + "\" nombreCarrera=\"" + nombreCarrera
+            + "\" fechaInicio=\"" + F_INICIO
+            + "\" fechaTerminacion=\"" + F_FIN
             + "\" idAutorizacionReconocimiento=\"" //1\""
             + "\" autorizacionReconocimiento=\""  //RVOE FEDERAL\""
             + "\" numeroRvoe=\"" + "\" />",
         
-        "\n\t <Profesionista curp=\""
-            + "\" nombre=\""
-            + "\" primerApellido=\""
-            + "\" segundoApellido=\""
-            + "\" correoElectronico=\"" + "\" />",
+        "\n\t <Profesionista curp=\"" + curp
+            + "\" nombre=\"" + nombre
+            + "\" primerApellido=\"" + a_paterno
+            + "\" segundoApellido=\"" + a_materno
+            + "\" correoElectronico=\"" + correo + "\" />",
         
         "\n\t <Expedicion fechaExpedicion=\""
             + "\" idModalidadTitulacion=\""
@@ -481,23 +494,23 @@ public class JFT_Generador_Titulos extends javax.swing.JFrame {
                 }
 
                 //TODO:- Get the responsable Folio!!!!!!
-                String nombre = res.getString("Nombre");
-                String a_paterno = res.getString("Apellido_paterno");
-                String a_materno = res.getString("Apellido_materno");
-                String correo = res.getString("Correo");
+                nombre = res.getString("Nombre");
+                a_paterno = res.getString("Apellido_paterno");
+                a_materno = res.getString("Apellido_materno");
+                correo = res.getString("Correo");
 
                 String folio_control = "000001";
 
                 String fullName = nombre + " " + a_paterno + " " + a_materno;
                 //String folio_control = res.getString("folio_control");
-                String curp = res.getString("CURP");
+                curp = res.getString("CURP");
                 String id_carrera = res.getString("Carrera");
                 
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                            
-                String F_INICIO = formatter.format(res.getDate("Fecha inicio"));
-                String F_FIN = formatter.format(res.getDate("Fecha fin"));
-                String F_EXAMEN = formatter.format(res.getDate("Fecha examen"));
+                F_INICIO = formatter.format(res.getDate("Fecha inicio"));
+                F_FIN = formatter.format(res.getDate("Fecha fin"));
+                F_EXAMEN = formatter.format(res.getDate("Fecha examen"));
                 
 
                 String SS = res.getString("Servicio social");
