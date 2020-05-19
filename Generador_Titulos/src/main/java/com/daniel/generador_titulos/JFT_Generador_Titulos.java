@@ -98,7 +98,7 @@ public class JFT_Generador_Titulos extends javax.swing.JFrame {
     public static Connection getConnection() {
         Connection conn = null;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             conn = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
             // JOptionPane.showMessageDialog(null, "Conexión exitosa");
         } catch (ClassNotFoundException | SQLException e) {
